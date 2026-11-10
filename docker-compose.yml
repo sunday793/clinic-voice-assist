@@ -1,0 +1,42 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+      - "9092:9092"
+    env_file: .env
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./app:/app/app
+      - ./data:/app/data
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: clinic
+    ports:
+      - "5434:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  clinic-asterisk:
+    image: andrius/asterisk:18
+    container_name: clinic-asterisk
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./asterisk-config/pjsip.conf:/etc/asterisk/pjsip.conf:ro
+      - ./asterisk-config/extensions.conf:/etc/asterisk/extensions.conf:ro
+      - ./asterisk-config/modules.conf:/etc/asterisk/modules.conf:ro
+
+volumes:
+  pgdata:

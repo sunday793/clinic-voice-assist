@@ -1,0 +1,17 @@
+.git
+.gitea
+.github
+notebooks
+data
+fixtures
+docs
+models
+logs
+*.md
+.env
+.venv
+venv
+__pycache__
+.pytest_cache
+.mypy_cache
+.ruff_cache
