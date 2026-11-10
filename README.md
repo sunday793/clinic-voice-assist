@@ -84,7 +84,7 @@
 ## Структура проекта
 
 ```text
-voice_assistant_for_a_clinic/
+clinic-voice-assist/
 │
 ├── .env.example                   # шаблон переменных окружения
 ├── Makefile                       # make up / test / lint / build
